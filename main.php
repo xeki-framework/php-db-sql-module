@@ -5,7 +5,7 @@
  * Date: 3/10/2016
  * Time: 11:42 PM
  */
-namespace xeki_db_sql;
+namespace db_sql;
 require_once dirname(__FILE__) . "/core/mysql.php";
 
 class main
