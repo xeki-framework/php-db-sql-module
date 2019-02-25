@@ -4,10 +4,10 @@ class mysql
 {
     private $con;
 
-    public $host = '';
-    public $user = '';
-    public $pass = '';
-    public $db = '';
+//    private $host = '';
+//    private $user = '';
+//    private $pass = '';
+//    private $db = '';
 
     public function __construct($db = array())
     {
@@ -17,10 +17,10 @@ class mysql
             'pass' => '',
             'db' => 'test'
         );
-        $this->host = $db['host'];
-        $this->user = $db['user'];
-        $this->pass = $db['pass'];
-        $this->db = $db['db'];
+//        $this->host = $db['host'];
+//        $this->user = $db['user'];
+//        $this->pass = $db['pass'];
+//        $this->db = $db['db'];
         $db = array_merge($default, $db);
 
         $this->con = mysqli_connect($db['host'], $db['user'], $db['pass'], $db['db']) or die ('Error connecting to db');
