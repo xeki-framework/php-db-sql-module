@@ -405,7 +405,7 @@ class mysql
         return $str;
     }
 
-    function create_table_array($sql_array)
+    function create_table_array_legacy($sql_array)
     {
         $sql = $this;
         $pk = 'id';
@@ -423,7 +423,8 @@ class mysql
             if ($opcion[0] == "int") $sqlTemp .= 'int(11)';
             else if ($opcion[0] == "number") $sqlTemp .= 'int(11)';
             else if ($opcion[0] == "float") $sqlTemp .= 'float(11)';
-            else if ($opcion[0] == "text") $sqlTemp .= 'varchar(500)';
+            else if ($opcion[0] == "text") $sqlTemp .= 'varchar(80)';
+            else if ($opcion[0] == "text_long") $sqlTemp .= 'varchar(240)';
             else if ($opcion[0] == "tags") $sqlTemp .= 'varchar(500)';
             else if ($opcion[0] == "textArea") $sqlTemp .= 'longtext';
             else if ($opcion[0] == "textAreaBlog") $sqlTemp .= 'longtext';
@@ -434,7 +435,8 @@ class mysql
             else if ($opcion[0] == "selectSub") $sqlTemp .= 'int(10)';
             else if ($opcion[0] == "image") $sqlTemp .= 'varchar(500)';
             else if ($opcion[0] == "password") $sqlTemp .= 'varchar(500)';
-            else if ($opcion[0] == "separator") $sqlTemp = 'PASS';
+            else if ($opcion[0] == "timestamp") $sqlTemp .= 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP';
+            else if ($opcion[0] == "timestamp_u") $sqlTemp .= 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP';
 
             else if ($opcion[0] == "video") {
                 $sqlTemp .= '
@@ -459,6 +461,7 @@ class mysql
                 $sqlTemp .= "";
                 $sqlTemp .= ';' . "\n";
 //            $sql .= $sqlTemp;
+
                 print_r($sqlTemp);
                 if (!$sql->execute($sqlTemp)) {
                     d($sqlTemp);
@@ -468,6 +471,60 @@ class mysql
         }
         return $sql;
     }
-}
 
-?>
+    function create_table_array($sql_array)
+    {
+        $sql = $this;
+        $pk = 'id';
+        $query = "CREATE TABLE IF NOT EXISTS {$sql_array['table']}
+        ( $pk int(11) NOT NULL AUTO_INCREMENT , PRIMARY KEY ( $pk ))
+        AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;";
+        if (!$sql->execute($query)) {
+            d($query);
+            d($sql->error());
+        }
+        foreach ($sql_array['elements'] as $key => $value) {
+            $sqlTemp = "ALTER TABLE `{$sql_array['table']}` ADD COLUMN `$key`  ";
+            $config = $value;
+            ##type
+            if ($config['type_field'] == "int") $sqlTemp .= 'int(11)';
+            else if ($config['type_field'] == "number") $sqlTemp .= 'int(11)';
+            else if ($config['type_field'] == "float") $sqlTemp .= 'float(11)';
+            else if ($config['type_field'] == "text") $sqlTemp .= 'varchar(80)';
+            else if ($config['type_field'] == "text_long") $sqlTemp .= 'varchar(240)';
+            else if ($config['type_field'] == "tags") $sqlTemp .= 'varchar(500)';
+            else if ($config['type_field'] == "textArea") $sqlTemp .= 'longtext';
+            else if ($config['type_field'] == "textAreaBlog") $sqlTemp .= 'longtext';
+            else if ($config['type_field'] == "textAreaSimple") $sqlTemp .= 'longtext';
+            else if ($config['type_field'] == "date") $sqlTemp .= 'date';
+            else if ($config['type_field'] == "hour") $sqlTemp .= 'varchar(200)';
+            else if ($config['type_field'] == "select") $sqlTemp .= 'varchar(100)';
+            else if ($config['type_field'] == "selectSub") $sqlTemp .= 'int(10)';
+            else if ($config['type_field'] == "image") $sqlTemp .= 'varchar(500)';
+            else if ($config['type_field'] == "password") $sqlTemp .= 'varchar(500)';
+            else if ($config['type_field'] == "timestamp") $sqlTemp .= 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP';
+            else if ($config['type_field'] == "timestamp_u") $sqlTemp .= 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP';
+           else {
+                d("Invalid type field") ;
+                d($config);
+                d($sql_array);
+                die();
+            }
+
+            if ($config['null'] == "allow") $sqlTemp .= " NOT NULL ";
+            if ($config['null'] == "not_allow") $sqlTemp .= " NOT ";
+
+            if (isset($config['value_default'])) $sqlTemp .= " DEFAULT '{$config['value_default']}' ";
+
+
+
+            d($sqlTemp);
+            if (!$sql->execute($sqlTemp)) {
+                d($sqlTemp);
+                d($sql->error());
+            }
+
+        }
+        return true;
+    }
+}
