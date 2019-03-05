@@ -521,8 +521,8 @@ class mysql
 
             // d($sqlTemp);
             if (!$sql->execute($sqlTemp)) {
-                d($sqlTemp);
-                d($sql->error());
+                // d($sqlTemp);
+                // d($sql->error());
             }
 
         }
