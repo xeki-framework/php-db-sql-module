@@ -479,6 +479,7 @@ class mysql
         $query = "CREATE TABLE IF NOT EXISTS {$sql_array['table']}
         ( $pk int(11) NOT NULL AUTO_INCREMENT , PRIMARY KEY ( $pk ))
         AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;";
+        d("- Sql Generate table {$sql_array['table']}");
         if (!$sql->execute($query)) {
             d($query);
             d($sql->error());
@@ -518,7 +519,7 @@ class mysql
 
 
 
-            d($sqlTemp);
+            // d($sqlTemp);
             if (!$sql->execute($sqlTemp)) {
                 d($sqlTemp);
                 d($sql->error());
