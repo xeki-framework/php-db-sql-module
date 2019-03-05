@@ -11,7 +11,7 @@ if(!is_cli()){
     die();
 }
 $name_module = "db-sql";
-$name_module_full = "php-$name_module-module";
+$name_module_full = "$name_module-module";
 
 // Check if have config
 $config_folder = \xeki\core::$SYSTEM_PATH_BASE."/core/modules_config/$name_module";
