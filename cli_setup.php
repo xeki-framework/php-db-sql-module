@@ -24,9 +24,13 @@ if(!file_exists($config_folder)){
 }
 
 $config_default = \xeki\core::$SYSTEM_PATH_BASE."/modules/$name_module_full/setup/default_config.php";
-d($config_default);
+
 if(!file_exists($config_folder_file)){
     copy($config_default,$config_folder_file);
+    d("Default config copied");
+}
+else{
+    d("Exist config yet, for setup the default delete and run again setup");
 }
 
 // generate db
