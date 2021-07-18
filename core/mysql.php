@@ -4,11 +4,6 @@ class mysql
 {
     private $con;
 
-//    private $host = '';
-//    private $user = '';
-//    private $pass = '';
-//    private $db = '';
-
     public function __construct($db = array())
     {
         $default = array(
@@ -17,12 +12,7 @@ class mysql
             'pass' => '',
             'db' => 'test'
         );
-//        $this->host = $db['host'];
-//        $this->user = $db['user'];
-//        $this->pass = $db['pass'];
-//        $this->db = $db['db'];
         $db = array_merge($default, $db);
-
         $this->con = mysqli_connect($db['host'], $db['user'], $db['pass'], $db['db']) or die ('Error connecting to db');
     }
 
@@ -159,8 +149,7 @@ class mysql
                 $values[] = "'" . mysqli_real_escape_string($this->con, $value) . "'";
             }
         }
-        $s = "INSERT INTO $table ( `" . implode('` , `', $fields) . '`) VALUES (' . implode(',', $values) . ')';
-//        d($s);
+        $s = "INSERT INTO $table ( `" . implode('` , `', $fields) . '`) VALUES (' . implode(',', $values) . ')'";
         if (mysqli_query($this->con, $s)) return mysqli_insert_id($this->con);
         return false;
     }
@@ -189,7 +178,6 @@ class mysql
     }
 
     #adds
-
     public function getAllId($table = null, $id = null)
     {
         if ($table === null || $id === null) return false;

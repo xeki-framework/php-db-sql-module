@@ -1,0 +1,22 @@
+{
+    "name": "xeki-tech/db",
+    "type": "library",
+    "description": "db for xeki framework",
+    "keywords": ["templating"],
+    "homepage": "https://xeki.tech/db",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Xeki Team",
+            "role": "Contributors"
+        },
+        {
+            "name": "Luis Patt",
+            "role": "Project Founder"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "ext-mysqli": "*" 
+    }  
+}
