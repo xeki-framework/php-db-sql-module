@@ -1,11 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Liuspatt
- * Date: 3/10/2016
- * Time: 11:42 PM
- */
-namespace db_sql;
+namespace xeki_modules\html_twig;
 require_once dirname(__FILE__) . "/core/mysql.php";
 
 class main
@@ -35,10 +29,6 @@ class main
 
             $this->sql = new mysql($connection_information);
         }
-//        d($this->sql);
-//        $info = $this->sql->query("SELECT * FROM blog");
-//        d($info);
-//        die();
         return $this->sql;
     }
     

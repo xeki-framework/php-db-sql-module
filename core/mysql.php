@@ -1,5 +1,5 @@
 <?php
-namespace db_sql;
+namespace xeki_modules\html_twig;
 class mysql
 {
     private $con;
@@ -149,7 +149,7 @@ class mysql
                 $values[] = "'" . mysqli_real_escape_string($this->con, $value) . "'";
             }
         }
-        $s = "INSERT INTO $table ( `" . implode('` , `', $fields) . '`) VALUES (' . implode(',', $values) . ')'";
+        $s = "INSERT INTO $table ( `" . implode('` , `', $fields) . '`) VALUES (' . implode(',', $values) . ')';
         if (mysqli_query($this->con, $s)) return mysqli_insert_id($this->con);
         return false;
     }
@@ -166,8 +166,6 @@ class mysql
             else $values[] = "'" . mysqli_real_escape_string($this->con, $value) . "'";
         }
         $s = "CREATE TABLE IF NOT EXISTS $table (" . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
-        print $s;
-        //        if (mysqli_query($s,$this->con)) return mysqli_insert_id($this->con);
         return false;
     }
 
@@ -505,12 +503,9 @@ class mysql
 
             if (isset($config['value_default'])) $sqlTemp .= " DEFAULT '{$config['value_default']}' ";
 
-
-
-            // d($sqlTemp);
             if (!$sql->execute($sqlTemp)) {
-                // d($sqlTemp);
-                // d($sql->error());
+                d($sqlTemp);
+                d($sql->error());
             }
 
         }

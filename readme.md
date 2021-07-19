@@ -8,7 +8,13 @@ SQL for xeki
 ### Xeki install
 In console 
 ```
-xeki add module xeki-sql
+    composer require xeki-tech/db
+```
+Copy config 
+
+```
+ temporal 
+ 
 ```
 
 
@@ -45,5 +51,16 @@ $data = array(
     "email" => $user['new_email'],
 );
 $sql->insert("user", $data);
+
+```
+
+### Delete
+```
+
+$data_array=[];
+$data_array['title']="":
+$sql->update("tableName", $data_array, "sku='cd22'");
+
+$sql->delete($table = null, $conditions = 'FALSE')
 
 ```
