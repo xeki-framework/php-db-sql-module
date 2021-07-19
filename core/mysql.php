@@ -1,5 +1,5 @@
 <?php
-namespace xeki_modules\html_twig;
+namespace xeki_modules\db;
 class mysql
 {
     private $con;
@@ -498,7 +498,6 @@ class mysql
                 die();
             }
 
-//            if ($config['null'] == "allow") $sqlTemp .= " NOT ";
             if ($config['null'] == "not_allow") $sqlTemp .= " NOT NULL " ;
 
             if (isset($config['value_default'])) $sqlTemp .= " DEFAULT '{$config['value_default']}' ";

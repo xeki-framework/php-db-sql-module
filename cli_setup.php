@@ -10,7 +10,7 @@
 if(!is_cli()){
     die();
 }
-$name_module = "db-sql";
+$name_module = "db";
 $name_module_full = "$name_module";
 
 // Check if have config
@@ -32,6 +32,3 @@ if(!file_exists($config_folder_file)){
 else{
     d("Exist config yet, for setup the default delete and run again setup");
 }
-
-// generate db
-

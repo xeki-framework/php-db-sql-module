@@ -1,5 +1,5 @@
 <?php
-namespace xeki_modules\html_twig;
+namespace xeki_modules\db;
 require_once dirname(__FILE__) . "/core/mysql.php";
 
 class main
